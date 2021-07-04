@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+ 
+#define mp make_pair
+#define pb push_back
+using namespace std;
+typedef vector<int> vi;
+typedef pair<int,int> pi;
+typedef long long ll;
+ 
+unsigned long ranked[200001];
+unsigned long player[200001];
+ 
+int main(){
+    ios_base::sync_with_stdio(false);
+    unsigned long m,n;
+    unsigned long idx=0;
+    cin>>m;
+    unsigned long prev=0;
+    for(int i=0;i<m;++i){
+        int tmp;
+        cin>>tmp;
+        if(tmp!=prev){
+            ranked[idx]=tmp;
+            ++idx;
+        }
+        prev=tmp;
+    }
+    m=idx;
+    idx=0;
+    cin>>n;
+    prev=0;
+    for(int i=0;i<n;++i){
+        int tmp;
+        cin>>tmp;
+        if(tmp!=prev){
+            player[idx]=tmp;
+            ++idx;
+        }
+        prev=tmp;
+    }
+    n=idx;
+    sort(ranked,ranked+m);
+    idx = 0;
+    for(int i=0;i<n;++i){
+        for(idx;idx<m;idx++){
+            if(player[i]<ranked[idx] && player[i]>ranked[idx-1]){
+                printf("score: %d, rank : %d , idx: %d, i: %d\n",player[i],(m+1-idx),idx,i);
+                ++idx;
+                break;
+            }
+            else if(player[i]==ranked[idx]){
+                ++idx;
+                printf("score: %d , rank : %d , idx: %d, i: %d\n",player[i],(m+1-idx),idx,i);
+                break;
+            }
+            else if(player[i]>=ranked[m-1]){
+                cout<<1<<"\n";
+                break;
+            }
+        }
+    }
+    return 0;
+}

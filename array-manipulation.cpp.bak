@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int n,m;
+    cin>>n>>m;
+    int upperLimit = 0;
+    int lowerLimit = 0;
+    int max = 0;
+    cin>>lowerLimit>>upperLimit>>max;
+    for(int i=1;i<m;i++){
+        int a,b,k;
+        cin>>a>>b>>k;
+        if(lowerLimit <= a && upperLimit >= b){
+            lowerLimit = a;
+            upperLimit = b;
+            max += k;
+        }
+        else if(a<=upperLimit && b>=upperLimit){
+            max += k;
+            lowerLimit = a;
+        }
+        else if(b>=lowerLimit && a<=lowerLimit){
+            max += k;
+            upperLimit = b;
+        }
+        else if(a<lowerLimit && b>upperLimit){
+            max+=k;
+        }
+        else if(k>max){
+            lowerLimit = a;
+            upperLimit = b;
+            max = k;
+        }
+    }
+    cout<<max;
+}
